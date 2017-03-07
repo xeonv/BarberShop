@@ -6,9 +6,9 @@
     <label>Парикмахер</label>
     <select class="form-control" name ="worker"  required>
       <option></option>
-      <option>Walter White</option>
-      <option>Jessie Pinkman</option>
-      <option>Gus Fring</option>
+      <option <%= @worker == 'Walter White' ? 'selected' : '' %>>>Walter White</option>
+      <option <%= @worker == 'Jessie Pinkman' ? 'selected' : '' %>>Jessie Pinkman</option>
+      <option <%= @worker == 'Gus Fring' ? 'selected' : '' %>>Gus Fring</option>
     </select>
   </div>
   <div class="form-group">
