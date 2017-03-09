@@ -88,6 +88,7 @@ end
 
 post '/contacts' do
 text = params[:text]
+email = params[:email]
 if text == ''
 		@error = 'Введите текст для отправки. '
 		return erb :contacts
@@ -96,7 +97,7 @@ if text == ''
 Pony.mail({
       :to => 'xeonv@mail.ru',
       :from => 'xeonv@yandex.ru',
-      :subject => 'BarberShop',
+      :subject => "BarberShop from #{email}",
       :body => params[:text],
       :via => :smtp,
       :via_options => {
