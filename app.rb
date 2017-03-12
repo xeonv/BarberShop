@@ -4,15 +4,20 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
+def get_db
+	 SQLite3::Database.new 'BarberShop.sqlite'
+end
+
 configure do
-	@db = SQLite3::Database.new 'BarberShop.sqlite'
-	@db.execute 'CREATE TABLE IF NOT EXISTS 
+
+	# db = get_db
+	get_db.execute 'CREATE TABLE IF NOT EXISTS 
 			"Users" 
 			(
 				"Id" INTEGER PRIMARY KEY AUTOINCREMENT, 
 				"Name" TEXT, 
 				"Phone" TEXT, 
-				"DataStamp" TEXT, 
+				"DateStamp" TEXT, 
 				"Barber" TEXT, 
 				"Color" TEXT
 			)'
@@ -62,15 +67,13 @@ post '/visit' do
 	# end
 
 	hh = {:username =>'Введите имя. ', :telephone => 'Введите телефон. ', :time => 'Введите время. '}
-	
+	# длиный вариант проверки пустых полей
 	# hh.each do |key, value|
 	# 	if params[key] == ''
 			
 	# 		@error = hh [key]
 	# 		return erb :visit
-	# 	end
-
-		
+	# 	end	
 	# end
 	
 	@error = hh.select {|k , v | params[k] == ""}.values.join (", ")
@@ -79,11 +82,16 @@ post '/visit' do
 		return erb :visit
 	end
 	
+	@error = nil
+
+	# Запись данных в файл
+	# output = File.open("./public/users.txt", "a")
+	# output.puts "Имя: #{@username}, Телефон: #{@telephone}, Время: #{@time}, Парикмахер: #{@worker}, Цвет: #{@color}"
+	# output.close
+	# db = get_db
+	get_db.execute 'insert into Users (Name, Phone, DateStamp, Barber, Color) values (?,?,?,?,?)', [@username, @telephone, @time, @worker, @color]
 
 
-	output = File.open("./public/users.txt", "a")
-	output.puts "Имя: #{@username}, Телефон: #{@telephone}, Время: #{@time}, Парикмахер: #{@worker}, Цвет: #{@color}"
-	output.close
 	erb "Вы записались как: Имя - #{@username}, Телефон - #{@telephone}, Время - #{@time}, Парикмахер - #{@worker}, Цвет окраски - #{@color} <br>Спасибо за внимание к нам!"
 end
 
@@ -129,3 +137,6 @@ Pony.mail({
   redirect '/'
 
 end
+	
+
+ 
