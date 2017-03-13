@@ -43,6 +43,10 @@ get '/login' do
 	erb :login_form
 end
 
+get '/showusers' do
+	erb "Hello"
+end
+
 post '/visit' do
 	@username  = params[:username]
 	@telephone = params[:telephone]

@@ -13,15 +13,15 @@
   </div>
   <div class="form-group">
     <label>Ваше имя</label>
-    <input name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="Введите ваше имя" value="<%=@username%>">
+    <input name="username" type="text" class="form-control"  placeholder="Введите ваше имя" value="<%=@username%>">
   </div>
   <div class="form-group">
   <label>Ваш телефон</label>
-    <input name="telephone" type="text" class="form-control" id="exampleInputEmail1" placeholder="Введите ваш телефон" value="<%=@telephone%>">
+    <input name="telephone" type="text" class="form-control"  placeholder="Введите ваш телефон" value="<%=@telephone%>">
   </div>
   <div class="form-group">
   <label>В какое время Вас ждать</label>
-    <input name="time" type="text" class="form-control" id="exampleInputEmail1" placeholder="Введите дату и время" value="<%=@time%>">
+    <input id="datetimepicker" name="time" type="text" class="form-control"  placeholder="Введите дату и время" value="<%=@time%>">
   </div>
 
   <div class="form-group">
@@ -49,6 +49,7 @@
 //alert("Приветствуем на visit page!")
 //$('#color').simplecolorpicker()
 $(function() {
-  $('#color').simplecolorpicker()
+  $('#color').simplecolorpicker();
+  $('#datetimepicker').datetimepicker();
 });
 </script>
