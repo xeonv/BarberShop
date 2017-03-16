@@ -5,7 +5,9 @@ require 'sinatra/reloader'
 require 'sqlite3'
 
 def get_db
-	 SQLite3::Database.new 'BarberShop.sqlite'
+	 db = SQLite3::Database.new 'BarberShop.sqlite'
+	 db.results_as_hash = true
+	 return db
 end
 
 configure do
@@ -20,6 +22,13 @@ configure do
 				"DateStamp" TEXT, 
 				"Barber" TEXT, 
 				"Color" TEXT
+			)'
+
+	get_db.execute 'CREATE TABLE IF NOT EXISTS 
+			"Barbers" 
+			(
+				"Id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+				"Name" TEXT, 
 			)'
 end
 
@@ -103,9 +112,11 @@ post '/login' do
 	username  = params[:username]
 	password = params[:password]
 
-	if username == "admin" && password == "secret"
+	if username == "1" && password == "1"
+		get_users
+		 erb :showusers
 
-		 send_file "./public/users.txt"
+		 # send_file "./public/users.txt"
 		# redirect to('/users.txt')
 	else
 		@error = "Вы ошиблись"
@@ -141,6 +152,19 @@ Pony.mail({
   redirect '/'
 
 end
-	
+
+def get_users
+@table_users = ""
+	get_db.execute 'select * from Users order by Id desc' do |row| 
+			
+		 @table_users += "<tr><td>#{row ['Name']}</td><td>#{row ['Phone']}</td><td>#{row ['DateStamp']}</td>
+		 					<td>#{row ['Barber']}</td><td>#{row ['Color']}</td></tr>"
+		# @phone = row ['Phone']
+		# @datestamp = row ['DateStamp']
+		# @barber = row ['Barber']
+		# @color = row ['Color']
+	end
+
+end
 
  
