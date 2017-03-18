@@ -1,24 +1,31 @@
 <h2>Записавшиеся</h2>
 <table class="table table-striped">
- <tr>
- <td>
- Имя
- </td>
- <td>
- Телефон
- </td>
- <td>
- Дата
- </td>
- <td>
- Парикмахер
- </td>
- <td>
- Цвет
- </td>
- </tr>
- <%=@table_users%>
+<thead>
+	 <tr>
+		 <th>
+		 Имя
+		 </th>
+		 <th>
+		 Телефон
+		 </th>
+		 <th>
+		 Дата
+		 </th>
+		 <th>
+		 Парикмахер
+		 </th>
+		 <th>
+		 Цвет
+		 </th>
+	 </tr>
+ </thead>
+ <tbody>
+ 	<%=@table_users%>
+ </tbody>
 </table>
 
+
+<p>Вид таблицы в виде Hash</p>
+<p><%=@db%></p>
 
 

@@ -12,7 +12,6 @@ end
 
 configure do
 
-	# db = get_db
 	get_db.execute 'CREATE TABLE IF NOT EXISTS 
 			"Users" 
 			(
@@ -28,8 +27,9 @@ configure do
 			"Barbers" 
 			(
 				"Id" INTEGER PRIMARY KEY AUTOINCREMENT, 
-				"Name" TEXT, 
+				"Name" TEXT
 			)'
+
 end
 
 get '/' do
@@ -113,6 +113,7 @@ post '/login' do
 	password = params[:password]
 
 	if username == "1" && password == "1"
+		 @db = get_db.execute 'select * from Users order by Id desc'
 		get_users
 		 erb :showusers
 
@@ -159,10 +160,6 @@ def get_users
 			
 		 @table_users += "<tr><td>#{row ['Name']}</td><td>#{row ['Phone']}</td><td>#{row ['DateStamp']}</td>
 		 					<td>#{row ['Barber']}</td><td>#{row ['Color']}</td></tr>"
-		# @phone = row ['Phone']
-		# @datestamp = row ['DateStamp']
-		# @barber = row ['Barber']
-		# @color = row ['Color']
 	end
 
 end
