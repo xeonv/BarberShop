@@ -22,6 +22,11 @@ end
 	end
 end
 
+before do
+	db = get_db
+	@barbers = db.execute 'select * from Barbers'
+end
+
 configure do
 
 	get_db.execute 'CREATE TABLE IF NOT EXISTS 
@@ -42,7 +47,7 @@ configure do
 				"Name" TEXT
 			)'
 
-		 seed_db ['Gus Fring', 'Jessie Pinkman', 'Walter White']
+		 seed_db ['Gus Fring', 'Jessie Pinkman', 'Walter White', 'Teddi Pink']
 
 end
 
@@ -127,7 +132,6 @@ post '/login' do
 	password = params[:password]
 
 	if username == "1" && password == "1"
-		 @db = get_db.execute 'select * from Users order by Id desc'
 		get_users
 		 erb :showusers
 
