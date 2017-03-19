@@ -10,6 +10,18 @@ def get_db
 	 return db
 end
 
+def is_barber_exist? name
+	get_db.execute('select * from Barbers where Name=?',[name]).length > 0 
+end
+
+ def seed_db barbers
+ 	barbers.each do |barber|
+			if !is_barber_exist? barber
+				get_db.execute 'insert into Barbers (Name) values (?)', [barber]
+			end
+	end
+end
+
 configure do
 
 	get_db.execute 'CREATE TABLE IF NOT EXISTS 
@@ -29,6 +41,8 @@ configure do
 				"Id" INTEGER PRIMARY KEY AUTOINCREMENT, 
 				"Name" TEXT
 			)'
+
+		 seed_db ['Gus Fring', 'Jessie Pinkman', 'Walter White']
 
 end
 
